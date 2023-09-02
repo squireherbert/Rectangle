@@ -2,16 +2,50 @@
 # CIS 261
 # Week 8, Lab 1 Rectangle
 
-print("Rectangle Calculator")
-pole = False
-while not pole:
-    height = int(input("Write length side height: "))
-    width = int(input("Write length side width: "))
-    area = height * width
-    perimeter = 2 * (height + width)
-    if area >= 0:
-        print("Area of the rectangle:", area)
-        print("Perimeter of the rectangle:", perimeter)
-        pole = True
-    else:
-        print("Write correct data!")
+from dataclasses import dataclass
+
+@dataclass
+class Rectangle:
+     height: int
+     width: int
+     
+    def getPerimeter(self):
+     perimeter = self.height * 2 + self.width * 2
+     return perimeter
+ 
+    def getArea(self):
+         area = self.height * self.width
+         return area
+ 
+    def getStr(self):
+         s = ""
+         w = "* " * self.width + "\n"
+         s += w
+         for i in range(self.height - 2):
+             s += "* "
+             s += " " * (self.width - 2)
+             s += "* \n"
+         s += w
+         return s
+    
+def main():
+     print("Rectangle Calculator")
+     print()
+ 
+    again = "y"
+     while again.lower() == "y":
+         height = int(input("Height: "))
+         width = int(input("Width: "))
+ 
+         rectangle = Rectangle(height, width)
+         print("Perimeter:", rectangle.getPerimeter())
+         print("Area: ", rectangle.getArea())
+         print(rectangle.getStr())
+         
+         again = input("Continue? (y/n): ").lower()
+         print()
+         
+ print("Bye!")
+
+if __name__ == "__main__":
+    main()
